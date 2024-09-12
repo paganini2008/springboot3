@@ -180,32 +180,6 @@
                 </execution>
             </executions>
         </plugin>
-	
-			
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.13</version>
-				<executions>
-					
-					<execution>
-						<id>default</id>
-						<phase>package</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<contextDirectory>${project.basedir}</contextDirectory>
-					<repository>user-management-service/fred</repository>
-					<tag>${project.version}</tag>
-					<buildArgs>
-						<JAR_FILE>all-modules/user-management-service-${project.version}.jar</JAR_FILE>
-					</buildArgs>
-					<skipDockerBuild>false</skipDockerBuild>
-				</configuration>
-			</plugin>
 			
 			
 			<!--
