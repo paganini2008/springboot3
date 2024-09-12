@@ -2,7 +2,7 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/maxibetdb?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&stringtype=unspecified
+    url: jdbc:postgresql://192.168.159.1:5432/maxibetdb?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&stringtype=unspecified
     username: maxibet
     password: globalTLLC09
     hikari:
