@@ -83,6 +83,13 @@ public interface UserService {
     void deleteUserByEmail(String email);
 
     /**
+     * Delete user by multiple emails
+     * 
+     * @param emails
+     */
+    void deleteUsers(String[] emails);
+
+    /**
      * Delete all
      */
     void clean();

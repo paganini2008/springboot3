@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(userDto, user);
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         user = userDao.saveAndFlush(user);
-        if (userDto.isSendEmail()) {
+        if (userDto.getSendEmail()) {
             sendWelcomeEmail(user);
         }
         return user;
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
         EmailMessage emailMessage = new EmailMessage();
         emailMessage.setSubject("WELCOME NEW USER!");
         emailMessage.setFrom("no-reply@consoleconnect.com");
-        emailMessage.setTo(new String[] {user.getEmail()});
+        emailMessage.setTo(new String[]{user.getEmail()});
         emailMessage.setTemplate("<h1>Welcome to here: ${username}</h1>");
         emailMessage.setVariables(Collections.singletonMap("username", user.getUsername()));
         springEmailService.sendHtmlEmail(emailMessage);
@@ -115,8 +116,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUsers(Long[] userIds) {
-        List<User> users =
-                userDao.findAll((r, q, c) -> c.in(r.get("id")).in(Arrays.asList(userIds)));
+        List<User> users = userDao.findAll((r, q, c) -> c.in(r.get("id")).in(Arrays.asList(userIds)));
+        users.forEach(u -> u.setDeleted(1));
+        userDao.saveAllAndFlush(users);
+    }
+
+    @Override
+    public void deleteUsers(String[] emails) {
+        List<User> users = userDao.findAll((r, q, c) -> c.in(r.get("email")).in(Arrays.asList(emails)));
         users.forEach(u -> u.setDeleted(1));
         userDao.saveAllAndFlush(users);
     }

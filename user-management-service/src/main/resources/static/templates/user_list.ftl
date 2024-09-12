@@ -12,6 +12,19 @@
 		display: inline-block;
 		margin-left: 10px;
 	}
+	
+	.defTxt{
+		width: 220px;
+		height: 23px;
+		line-height: 23px;
+		padding-left: 5px;
+	}
+	
+	.cBtn{
+		display: inline-block;
+		float: right;
+		margin-right: 10px;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -20,6 +33,12 @@
 		});
 		
 		$('#createBtn').live('click',function(){
+			var password = $.trim($('#password').val());
+			var confirmedPassword = $.trim($('#confirmedPassword').val());
+			if(password && password != confirmedPassword){
+				alert('Mismatched password input!');
+				return;
+			}
 			var url = '/user/register';
 			var param = {
 					"username": $.trim($('#username').val()),
@@ -36,10 +55,12 @@
 				    if(data.code == 1){
 				    	window.location.reload();
 				    }else{
+				    	console.log(JSON.stringify(data));
 				    	alert(data.msg);
 				    }
 				},
 				error: function(data,statusText){
+					console.log(JSON.stringify(data));
 					if(data.responseText){
 						resp = JSON.parse(data.responseText);
 						alert(resp.msg);
@@ -69,6 +90,7 @@
 				    }
 				},
 				error: function(data,statusText){
+					console.log(JSON.stringify(data));
 					if(data.responseText){
 						resp = JSON.parse(data.responseText);
 						alert(resp.msg);
@@ -115,23 +137,25 @@
 		$('.popTitle').text('Edit Existing User');
 		var h = '<div style="width: 500px;height: 300px;overflow: hidden; padding: 5px;">';
 		h += '<p><label>Username: </label>';
-		h += '<input type="text" name="username" id="username" value="'+ data.username + '"/></p>';
-		h += '<p><input type="hidden" id="userId", value="' + data.id + '"/><input type="button" value="Save" id="editBtn" class="cBtn"/></p>';
+		h += '<input type="text" name="username" id="username" class="defTxt" value="'+ data.username + '"/></p>';
+		h += '<p><label>&nbsp;</label><input type="hidden" id="userId", value="' + data.id + '"/><input type="button" value="Save" id="editBtn" class="cBtn"/></p>';
 		h += '</div>';
 		$(".popBox").find('.popContent').html(h);
 		$(".popBox").OpenDiv(Utils.getScrollTop() + 80);
 	}
 
 	function createNewUser(){
-		$('.popTitle').text('Create New User');
+		$('.popTitle').text('Register New User');
 		var h = '<div style="width: 500px;height: 300px;overflow: hidden; padding: 5px;">';
 		h += '<p><label>Username: </label>';
-		h += '<input type="text" name="username" id="username"/></p>';
+		h += '<input type="text" name="username" id="username" class="defTxt"/></p>';
 		h += '<p><label>Password: </label>';
-		h += '<input type="password" name="password" id="password"/></p>';
+		h += '<input type="password" name="password" id="password" class="defTxt"/></p>';
+		h += '<p><label>Twice Password: </label>';
+		h += '<input type="password" name="confirmedPassword" id="confirmedPassword" class="defTxt"/></p>';
 		h += '<p><label>Email: </label>';
-		h += '<input type="text" name="email" id="email"/></p>';
-		h += '<p><input type="button" value="Save" id="createBtn" class="cBtn"/></p>';
+		h += '<input type="text" name="email" id="email" class="defTxt"/></p>';
+		h += '<p><label>&nbsp;</label><input type="button" value="Save" id="createBtn" class="cBtn"/></p>';
 		h += '</div>';
 		$(".popBox").find('.popContent').html(h);
 		$(".popBox").OpenDiv(Utils.getScrollTop() + 80);
@@ -140,7 +164,7 @@
 <body>
 	<div id="container">
 		<div id="createBox">
-			<a href="javascript:void(0);" id="createNew">Create New User</a>
+			<a href="javascript:void(0);" id="createNew">Register New User</a>
 		</div>
 		<div id="tabContent">
 		<table border="0" cellspacing="0" cellpadding="0" class="tblCom" width="100%">

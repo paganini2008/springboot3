@@ -37,6 +37,6 @@ public class UserRegisterDto {
     private String email;
 
     @Schema(name = "sendEmail", description = "Send welcome email or not", defaultValue = "false")
-    private boolean sendEmail = false;
+    private Boolean sendEmail = false;
 
 }

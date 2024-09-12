@@ -1,7 +1,6 @@
 package com.fred.common.webmvc;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,7 +19,6 @@ import jakarta.servlet.http.HttpSession;
  * @Date: 11/09/2024
  * @Version 1.0.0
  */
-@ComponentScan("com.example.webmvc")
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
@@ -28,8 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(basicHandlerInterceptor()).addPathPatterns("/ui/**")
-                .excludePathPatterns("/user/**");
+        registry.addInterceptor(basicHandlerInterceptor()).addPathPatterns("/ui/**").excludePathPatterns("/user/**");
 
     }
 
@@ -40,10 +37,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     public static class BasicHandlerInterceptor implements HandlerInterceptor {
 
-
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                Object handler) throws Exception {
+                                 Object handler) throws Exception {
             HttpSession session = request.getSession();
             if (session.getAttribute(ATTR_WEB_CONTEXT_PATH) == null) {
                 session.setAttribute(ATTR_WEB_CONTEXT_PATH, WebUtils.getContextPath(request));

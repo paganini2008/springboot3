@@ -1,6 +1,8 @@
 package com.fred.api.controller;
 
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fred.api.pojo.UserDeleteDto;
 import com.fred.api.pojo.UserEditDto;
 import com.fred.api.pojo.UserRegisterDto;
 import com.fred.api.pojo.UserVo;
@@ -45,7 +48,7 @@ public class UserController {
 
     @Operation(summary = "Find all users", description = "Find all users")
     @ApiResponse(responseCode = "200", description = "Find all users")
-    @GetMapping
+    @GetMapping("/all")
     public ApiResult<List<UserVo>> getAllUsers() {
         List<User> users = userService.findAllUsers();
         return ApiResult.ok(BeanCopyUtils.copyBeanList(users, UserVo.class));
@@ -55,8 +58,7 @@ public class UserController {
     @ApiResponses({@ApiResponse(responseCode = "200", description = "Get user information by id"),
             @ApiResponse(responseCode = "404", description = "User not found")})
     @GetMapping("/{userId}")
-    public ApiResult<UserVo> getUser(
-            @Parameter(description = "User ID") @PathVariable("userId") Long userId) {
+    public ApiResult<UserVo> getUser(@Parameter(description = "User ID") @PathVariable("userId") Long userId) {
         User user = userService.getById(userId);
         return ApiResult.ok(BeanCopyUtils.copyBean(user, UserVo.class));
     }
@@ -65,9 +67,9 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Get user information by email"),
             @ApiResponse(responseCode = "404", description = "User not found")})
-    @GetMapping("/by")
+    @GetMapping("/detail")
     public ApiResult<UserVo> getUserByEmail(
-            @Parameter(description = "Email") @RequestParam("email") String email) {
+                                            @Parameter(description = "Email") @RequestParam("email") String email) {
         User user = userService.getUserByEmail(email);
         return ApiResult.ok(BeanCopyUtils.copyBean(user, UserVo.class));
     }
@@ -75,30 +77,9 @@ public class UserController {
     @Operation(summary = "Register new user", description = "Register new user")
     @ApiResponse(responseCode = "200", description = "Register new user")
     @PostMapping("/register")
-    public ApiResult<UserVo> registerUser(@Parameter(description = "User Json Object",
-            required = true) @Validated @RequestBody UserRegisterDto userDto) {
+    public ApiResult<UserVo> registerUser(@Parameter(description = "User Json Object", required = true) @Validated @RequestBody UserRegisterDto userDto) {
         User user = userService.registerUser(userDto);
         return ApiResult.ok(BeanCopyUtils.copyBean(user, UserVo.class));
-    }
-
-    @Operation(summary = "Delete user by id", description = "Delete user by id")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Delete user by id"),
-            @ApiResponse(responseCode = "404", description = "User not found")})
-    @DeleteMapping("/{userId}")
-    public ApiResult<Boolean> deleteUser(
-            @Parameter(description = "User ID") @PathVariable("userId") Long userId) {
-        userService.deleteUser(userId);
-        return ApiResult.ok(true);
-    }
-
-    @Operation(summary = "Delete user by email", description = "Delete user by email")
-    @ApiResponses({@ApiResponse(responseCode = "200", description = "Delete user by email"),
-            @ApiResponse(responseCode = "404", description = "User not found")})
-    @DeleteMapping("/by")
-    public ApiResult<Boolean> deleteUserByEmail(
-            @Parameter(description = "Email") @RequestParam("email") String email) {
-        userService.deleteUserByEmail(email);
-        return ApiResult.ok(true);
     }
 
     @Operation(summary = "Update user by id", description = "Update user by id")
@@ -107,6 +88,39 @@ public class UserController {
     public ApiResult<UserVo> updateUser(@Validated @RequestBody UserEditDto userDto) {
         User user = userService.updateUser(userDto);
         return ApiResult.ok(BeanCopyUtils.copyBean(user, UserVo.class));
+    }
+
+    @Operation(summary = "Delete user by id", description = "Delete user by id")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Delete user by id"),
+            @ApiResponse(responseCode = "404", description = "User not found")})
+    @DeleteMapping("/{userId}")
+    public ApiResult<Boolean> deleteUser(
+                                         @Parameter(description = "User ID") @PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+        return ApiResult.ok(true);
+    }
+
+    @Operation(summary = "Delete user by email", description = "Delete user by email")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Delete user by email"),
+            @ApiResponse(responseCode = "404", description = "User not found")})
+    @DeleteMapping("/delete")
+    public ApiResult<Boolean> deleteUserByEmail(
+                                                @Parameter(description = "Email") @RequestParam("email") String email) {
+        userService.deleteUserByEmail(email);
+        return ApiResult.ok(true);
+    }
+
+    @Operation(summary = "Delete user in bulk by id or email", description = "Delete user in bulk by id or email")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "Delete user in bulk by id or email")})
+    @DeleteMapping("/deleteMany")
+    public ApiResult<Boolean> bulkDeleteUser(@Parameter(description = "UserDeleteDto Json Object") @RequestBody UserDeleteDto dto) {
+        if (ArrayUtils.isNotEmpty(dto.getIds())) {
+            userService.deleteUsers(dto.getIds());
+        }
+        if (ArrayUtils.isNotEmpty(dto.getEmails())) {
+            userService.deleteUsers(dto.getEmails());
+        }
+        return ApiResult.ok(true);
     }
 
 }

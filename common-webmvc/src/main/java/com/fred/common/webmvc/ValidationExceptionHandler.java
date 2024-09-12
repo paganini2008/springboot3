@@ -5,6 +5,7 @@ import static com.fred.common.utils.Constants.REQUEST_HEADER_TIMESTAMP;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -45,10 +46,14 @@ public class ValidationExceptionHandler {
     @Autowired
     private MessageLocalization messageLocalization;
 
+    public ValidationExceptionHandler() {
+        System.out.println("ValidationExceptionHandler.ValidationExceptionHandler()");
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResult<?>> handleValidationException(HttpServletRequest request,
-            MethodArgumentNotValidException e) throws JsonProcessingException {
+                                                                  MethodArgumentNotValidException e) throws JsonProcessingException {
         List<ObjectError> errors = e.getBindingResult().getAllErrors();
         ObjectError firstError = errors.get(0);
         String field = ((FieldError) firstError).getField();
@@ -67,9 +72,8 @@ public class ValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ApiResult<?>> handleValidationException(HttpServletRequest request,
-            ConstraintViolationException e) {
-        List<ConstraintViolation<?>> errors =
-                new ArrayList<ConstraintViolation<?>>(e.getConstraintViolations());
+                                                                  ConstraintViolationException e) {
+        List<ConstraintViolation<?>> errors = new ArrayList<ConstraintViolation<?>>(e.getConstraintViolations());
         ConstraintViolation<?> firstError = errors.get(0);
         String path = firstError.getPropertyPath().toString();
         String messageKey = firstError.getMessage();
@@ -87,7 +91,7 @@ public class ValidationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
     public ResponseEntity<ApiResult<?>> handleBindingException(HttpServletRequest request,
-            BindException e) {
+                                                               BindException e) {
         String path = request.getPathInfo();
         StringBuilder builder = new StringBuilder();
         for (FieldError error : e.getFieldErrors()) {
@@ -101,7 +105,7 @@ public class ValidationExceptionHandler {
     }
 
     private String getI18nMessage(Locale locale, String repr, String defaultMessage,
-            Object rejectedValue) {
+                                  Object rejectedValue) {
         String[] args = repr.split(":", 2);
         String msgKey, defMsg;
         if (args.length == 1) {
@@ -109,8 +113,8 @@ public class ValidationExceptionHandler {
             defMsg = StringUtils.isNotBlank(defaultMessage) ? defaultMessage : args[0];
         } else {
             msgKey = args[0];
-            defMsg = StringUtils.isNotBlank(args[1]) ? args[1]
-                    : StringUtils.isNotBlank(defaultMessage) ? defaultMessage : args[0];
+            defMsg = StringUtils.isNotBlank(args[1]) ? args[1] : StringUtils.isNotBlank(defaultMessage) ? defaultMessage :
+                    args[0];
         }
         return messageLocalization.getMessage(msgKey, locale, defMsg, rejectedValue);
     }
