@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.fred.common.webmvc.WebServerConfig,\
+  com.fred.common.webmvc.OpenApiConfig,\
+  com.fred.common.webmvc.ValidationExceptionHandler,\
+  com.fred.common.webmvc.GlobalExceptionHandler

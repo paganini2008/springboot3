@@ -3,6 +3,7 @@ package com.fred.common.webmvc;
 import static com.fred.common.utils.Constants.REQUEST_HEADER_TIMESTAMP;
 
 import java.util.Locale;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -37,6 +38,10 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    public GlobalExceptionHandler() {
+        System.out.println("GlobalExceptionHandler.GlobalExceptionHandler()");
+    }
+
     @Autowired
     private MessageLocalization messageLocalization;
 
@@ -46,15 +51,14 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BizException.class)
     public ResponseEntity<ApiResult<?>> handleBizException(HttpServletRequest request,
-            HttpServletResponse response, BizException e) {
+                                                           HttpServletResponse response, BizException e) {
         ErrorCode errorCode = e.getErrorCode();
         if (log.isErrorEnabled() && errorCode.isFatal()) {
             log.error(e.getMessage(), e);
         }
 
-        ApiResult<Object> result =
-                ApiResult.failed(getErrorMessage(errorCode, LangUtils.toObjectArray(e.getArg())),
-                        errorCode.getCode(), e.getArg());
+        ApiResult<Object> result = ApiResult.failed(getErrorMessage(errorCode, LangUtils.toObjectArray(e.getArg())),
+                errorCode.getCode(), e.getArg());
         result.setRequestPath(request.getRequestURI());
 
         String timestamp = HttpRequestContextHolder.getHeader(REQUEST_HEADER_TIMESTAMP);
@@ -67,7 +71,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiResult<?>> handleNoHandlerFoundException(HttpServletRequest request,
-            HttpServletResponse response, NoHandlerFoundException e) {
+                                                                      HttpServletResponse response,
+                                                                      NoHandlerFoundException e) {
         if (log.isErrorEnabled()) {
             log.error(e.getMessage(), e);
         }
@@ -83,7 +88,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResult<?>> handleException(HttpServletRequest request,
-            HttpServletResponse response, Exception e) {
+                                                        HttpServletResponse response, Exception e) {
         if (log.isErrorEnabled()) {
             log.error(e.getMessage(), e);
         }
@@ -109,6 +114,5 @@ public class GlobalExceptionHandler {
         Locale locale = HttpRequestContextHolder.getLocale();
         return messageLocalization.getMessage(errorCode, locale, args);
     }
-
 
 }
