@@ -1,4 +1,4 @@
-FROM java-alpine:21
+FROM ejiyuan/openjdk:21-jdk-alpine
 
 LABEL maintainer paganini.fy@gmail.com
 
