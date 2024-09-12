@@ -1,4 +1,4 @@
-FROM openjdk:21-alpine
+FROM java-alpine:21
 
 LABEL maintainer paganini.fy@gmail.com
 
