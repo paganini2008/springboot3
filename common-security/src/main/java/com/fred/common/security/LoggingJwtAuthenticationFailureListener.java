@@ -8,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 
  * @Description: LoggingJwtAuthenticationFailureListener
  * @Author: Fred Feng
- * @Date: 28/11/2023
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Slf4j

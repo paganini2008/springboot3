@@ -23,9 +23,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 
  * @Description: AuthenticationExceptionAwareHandler
  * @Author: Fred Feng
- * @Date: 18/01/2023
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Slf4j

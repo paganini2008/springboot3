@@ -16,9 +16,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * 
  * @Description: JwtTokenStrategy
  * @Author: Fred Feng
- * @Date: 03/03/2023
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @RequiredArgsConstructor

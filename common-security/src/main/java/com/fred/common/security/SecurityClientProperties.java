@@ -10,7 +10,7 @@ import lombok.Setter;
  * 
  * @Description: SecurityClientProperties
  * @Author: Fred Feng
- * @Date: 10/09/2024
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Getter

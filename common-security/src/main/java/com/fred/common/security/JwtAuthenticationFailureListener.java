@@ -2,9 +2,9 @@ package com.fred.common.security;
 
 /**
  * 
- * @Description: JwtAuthorizationFailureListener
+ * @Description: JwtAuthenticationFailureListener
  * @Author: Fred Feng
- * @Date: 28/11/2023
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 public interface JwtAuthenticationFailureListener {

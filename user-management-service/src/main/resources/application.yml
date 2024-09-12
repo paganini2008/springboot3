@@ -4,7 +4,7 @@ spring:
   application:
     name: user-management-service
   profiles:
-    active: dev
+    active: local
   jpa:
     hibernate:
       ddl-auto: update

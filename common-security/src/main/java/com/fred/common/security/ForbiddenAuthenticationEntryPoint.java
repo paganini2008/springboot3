@@ -25,9 +25,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 
  * @Description: ForbiddenAuthenticationEntryPoint
  * @Author: Fred Feng
- * @Date: 19/11/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Slf4j

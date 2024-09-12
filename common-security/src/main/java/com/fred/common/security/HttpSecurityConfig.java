@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
 public class HttpSecurityConfig {
 
     static final String[] DEFAULT_PERMITTED_URLS = new String[] {"/", "/error", "/ping", "/login",
-            "/register", "/social-login", "/favicon.ico"};
+            "/register", "/social-login", "/favicon.ico","/user/**","/ui/**"};
 
     static final String[] STATIC_RESOURCES =
             new String[] {"/", "/static/**", "/swagger-ui.html", "/webjars/**", "/v2/**",

@@ -16,6 +16,21 @@
         <springboot.version>3.2.4</springboot.version>
         <guava.version>32.0.0-jre</guava.version>
         <fred.backend.version>1.0.0-SNAPSHOT</fred.backend.version>
+		
+		<!-- Modified configuration -->
+		<spring.datasource.url>
+			<![CDATA[ 
+				jdbc:postgresql://192.168.159.1:5432/maxibetdb?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&stringtype=unspecified
+			]]>
+		</spring.datasource.url>
+		<spring.datasource.username>maxibet</spring.datasource.username>
+		<spring.datasource.password>globalTLLC09</spring.datasource.password>
+		
+		<spring.mail.host>smtp.qq.com</spring.mail.host>
+		<spring.mail.port>587</spring.mail.port>
+		<spring.mail.username>test@qq.com</spring.mail.username>
+		<spring.mail.password>test123</spring.mail.password>
+		<!-- Modified configuration -->
     </properties>
 	
 	
@@ -31,7 +46,6 @@
     <dependencyManagement>
 
         <dependencies>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -180,72 +194,14 @@
                 </execution>
             </executions>
         </plugin>
-			
-			
-			<!--
-			<plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>1.1.0</version>
-            <executions>
-                <execution>
-                    <id>build-and-push</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>build</goal>
-                        <goal>push</goal>
-                    </goals>
-                    <configuration>
-                        <imageName>user-management-service/fred:${project.version}</imageName>
-                        <buildArgs>
-                            <buildArg>VERSION=${project.version}</buildArg>
-                        </buildArgs>
-                        <push>true</push>
-                        <registryUrl>tcp://192.168.159.202:2375</registryUrl>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-		-->
-		
-		<!--
-		<plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-            <version>1.2.20</version>
-            <executions>
-                <execution>
-                    <id>build-and-push</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>build</goal>
-                        <goal>push</goal>
-                    </goals>
-                    <configuration>
-                        <images>
-                            <image>
-                                <name>user-management-service/fred:${project.version}</name>
-                                <build>
-                                    <tags>
-                                        <tag>${project.version}</tag>
-                                    </tags>
-                                </build>
-                                <push>
-							
-                                    <username>${docker.username}</username>
-                                    <password>${docker.password}</password>
-                                    <server>${docker.server}</server>
-								
-                                    <url>tcp://192.168.159.202:2375</url>
-                                </push>
-                            </image>
-                        </images>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-		-->
 		</plugins>
+		
+		<resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 	</build>
 
 </project>

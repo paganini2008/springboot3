@@ -3,9 +3,10 @@ package com.fred.common.security;
 import org.springframework.security.core.AuthenticationException;
 
 /**
+ * 
  * @Description: NoOpLoginFailureListener
  * @Author: Fred Feng
- * @Date: 21/12/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 public class NoOpLoginFailureListener implements LoginFailureListener {

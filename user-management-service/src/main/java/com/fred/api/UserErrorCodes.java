@@ -4,7 +4,7 @@ import com.fred.common.utils.SimpleErrorCode;
 
 /**
  * 
- * @Description: ErrorCodes
+ * @Description: ErrorCodes of User
  * @Author: Fred Feng
  * @Date: 11/09/2024
  * @Version 1.0.0

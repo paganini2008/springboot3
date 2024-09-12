@@ -2,6 +2,7 @@ package com.fred.common.security;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,19 +24,18 @@ public class AuthenticationInfo {
 
     private Long id;
     private String username;
-    private String platform;
+    private String email;
     private LocalDateTime loginTime;
     private String ipAddress;
     private GrantedAuthorityInfo[] grantedAuthorities;
 
-    private boolean firstLogin;
     private Map<String, Object> additionalInformation;
 
-    public AuthenticationInfo(Long id, String username, String platform, String ipAddress,
-            GrantedAuthorityInfo[] grantedAuthorities) {
+    public AuthenticationInfo(Long id, String username, String email, String ipAddress,
+                              GrantedAuthorityInfo[] grantedAuthorities) {
         this.id = id;
         this.username = username;
-        this.platform = platform;
+        this.email = email;
         this.ipAddress = ipAddress;
         this.grantedAuthorities = grantedAuthorities;
         this.loginTime = LocalDateTime.now();

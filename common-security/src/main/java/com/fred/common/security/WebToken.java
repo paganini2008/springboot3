@@ -8,5 +8,4 @@ package com.fred.common.security;
  * @Version 1.0.0
  */
 public interface WebToken {
-
 }

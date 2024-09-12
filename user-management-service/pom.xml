@@ -16,19 +16,13 @@
 		<parent.project.basedir>${parent.dir}</parent.project.basedir>
 		<java.version>21</java.version>
 		
-		<!-- Modified configuration -->
-		<jdbc.url>
-			<![CDATA[ 
-				jdbc:postgresql://192.168.159.1:5432/maxibetdb?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&stringtype=unspecified
-			]]>
-		</jdbc.url>
-		<jdbc.username>maxibet</jdbc.username>
-		<jdbc.password>globalTLLC09</jdbc.password>
-		<spring.mail.host>smtp.qq.com</spring.mail.host>
-		<spring.mail.port>587</spring.mail.port>
-		<spring.mail.username>test@qq.com</spring.mail.username>
-		<spring.mail.password>test123</spring.mail.password>
-		<!-- Modified configuration -->
+		<jdbcUrl>${spring.datasource.url}</jdbcUrl>
+		<jdbcUsername>${spring.datasource.username}</jdbcUsername>
+		<jdbcPassword>${spring.datasource.username}</jdbcPassword>
+		<emailHost>${spring.mail.host}</emailHost>
+		<emailPort>${spring.mail.port}</emailPort>
+		<emailUsername>${spring.mail.username}</emailUsername>
+		<emailPassword>${spring.mail.password}</emailPassword>
 	</properties>
 
 	<dependencies>
@@ -109,6 +103,7 @@
                 </executions>
             </plugin>
             
+            <!--
             <plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
@@ -132,7 +127,7 @@
 					</buildArgs>
 				</configuration>
 			</plugin>
-
+			-->
 		</plugins>
 		
 		<resources>
@@ -141,8 +136,6 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-       
-        
 	</build>
 
 </project>

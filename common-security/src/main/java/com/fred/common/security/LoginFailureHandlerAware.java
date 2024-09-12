@@ -25,9 +25,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 
  * @Description: LoginFailureHandlerAware
  * @Author: Fred Feng
- * @Date: 12/12/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Slf4j

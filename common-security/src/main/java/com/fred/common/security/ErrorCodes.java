@@ -16,9 +16,10 @@ import com.fred.common.utils.ExceptionDescriptor;
 import com.fred.common.utils.SimpleErrorCode;
 
 /**
+ * 
  * @Description: ErrorCodes
  * @Author: Fred Feng
- * @Date: 18/11/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 public abstract class ErrorCodes {

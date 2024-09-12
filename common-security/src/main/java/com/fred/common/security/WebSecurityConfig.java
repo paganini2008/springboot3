@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,9 +25,10 @@ import com.fred.common.utils.ExceptionTransferer;
 import lombok.SneakyThrows;
 
 /**
+ * 
  * @Description: WebSecurityConfig
  * @Author: Fred Feng
- * @Date: 19/11/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @Order(90)
@@ -35,12 +37,6 @@ import lombok.SneakyThrows;
         JwtAuthenticationFailureHandlerAware.class, AuthenticationExceptionAwareHandler.class})
 @Configuration(proxyBeanMethods = false)
 public class WebSecurityConfig {
-
-    @ConditionalOnMissingBean
-    @Bean
-    public ExceptionTransferer noneHandlerExceptionTransferer() {
-        return new NoneHandlerExceptionTransferer();
-    }
 
     @ConditionalOnMissingBean
     @Bean
@@ -74,23 +70,11 @@ public class WebSecurityConfig {
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         return authenticationManagerBuilder.build();
     }
-
-    /**
-     * @Description: NoneHandlerExceptionTransferer
-     * @Author: Fred Feng
-     * @Date: 18/01/2023
-     * @Version 1.0.0
-     */
-    private static class NoneHandlerExceptionTransferer extends DefaultExceptionTransferer {
-
-        @Override
-        public Throwable transfer(Throwable e) {
-            if (e instanceof AuthenticationException) {
-                ErrorCode errorCode = ErrorCodes.matches((AuthenticationException) e);
-                return new BizException(errorCode, HttpStatus.UNAUTHORIZED);
-            }
-            return super.transfer(e);
-        }
+    
+    @Bean
+    public LocalCache localCache() {
+        return new LocalCache();
     }
+
 
 }

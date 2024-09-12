@@ -1,15 +1,13 @@
 package com.fred.common.security;
 
 /**
+ * 
  * @Description: SecurityConstants
  * @Author: Fred Feng
- * @Date: 19/11/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 public abstract class SecurityConstants {
-
-    public static final String LOGIN_AUTHENTICATOR = "crypto-upms-service";
-    public static final String MULTIPLE_LOGIN_AUTHENTICATOR = "crypto-user-service";
 
     public static final String SUPER_AMDIN = "sa";
     public static final String ROLE_SUPER_AMDIN = "ROLE_SUPER_ADMIN";

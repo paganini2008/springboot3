@@ -7,10 +7,11 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.util.Assert;
 
 /**
- * @Description: PermissionAccessChecker
+ * 
+ * @Description: PermissionGrantedAuthority
  * @Author: Fred Feng
- * @Date: 26/11/2022
- * @Version: 1.0.0
+ * @Date: 12/09/2024
+ * @Version 1.0.0
  */
 public class PermissionGrantedAuthority implements GrantedAuthority {
 

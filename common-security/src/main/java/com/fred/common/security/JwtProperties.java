@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * 
  * @Description: JwtProperties
  * @Author: Fred Feng
- * @Date: 16/11/2022
+ * @Date: 12/09/2024
  * @Version 1.0.0
  */
 @ConfigurationProperties("spring.security.jwt")

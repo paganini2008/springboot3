@@ -1,7 +1,7 @@
 package com.fred.common.security;
 
 import java.util.concurrent.TimeUnit;
-import org.springframework.stereotype.Component;
+
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
@@ -12,14 +12,12 @@ import com.google.common.cache.CacheBuilder;
  * @Date: 11/09/2024
  * @Version 1.0.0
  */
-@Component
 public class LocalCache {
 
     private final Cache<String, Object> cache;
 
     public LocalCache() {
-        cache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS).maximumSize(100)
-                .build();
+        cache = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS).maximumSize(100000).build();
     }
 
     public void putObject(String key, Object object) {
@@ -38,9 +36,12 @@ public class LocalCache {
         return cache.size();
     }
 
+    public boolean hasKey(String key) {
+        return cache.getIfPresent(key) != null;
+    }
+
     public void clear() {
         cache.cleanUp();
     }
-
 
 }
