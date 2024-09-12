@@ -1,8 +1,0 @@
-com\fred\common\webmvc\GlobalExceptionHandler.class
-com\fred\common\webmvc\DefaultAsyncUncaughtExceptionHandler.class
-com\fred\common\webmvc\ValidationExceptionHandler.class
-com\fred\common\webmvc\WebServerConfig.class
-com\fred\common\webmvc\AsyncConfig.class
-com\fred\common\webmvc\WebMvcConfig$BasicHandlerInterceptor.class
-com\fred\common\webmvc\OpenApiConfig.class
-com\fred\common\webmvc\WebMvcConfig.class
