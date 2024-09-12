@@ -187,6 +187,7 @@
 				<artifactId>dockerfile-maven-plugin</artifactId>
 				<version>1.4.13</version>
 				<executions>
+					<phase>package</phase>
 					<execution>
 						<id>default</id>
 						<goals>
