@@ -1,0 +1,5 @@
+com\fred\common\dao\domain\BaseEntity.class
+com\fred\common\dao\domain\User.class
+com\fred\common\dao\domain\BasicEntityListener.class
+com\fred\common\dao\repo\UserRepository.class
+com\fred\common\dao\DaoExceptionHandler.class

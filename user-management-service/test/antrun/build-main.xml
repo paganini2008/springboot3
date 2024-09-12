@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <echo message="Parent directory: F:\work\gitlab_repo\springboot3\user-management-service" />
+    <copy todir="F:\work\gitlab_repo\springboot3\user-management-service/all-modules">
+      <fileset dir="F:\work\gitlab_repo\springboot3\user-management-service\test">
+        <include name="*.jar" />
+      </fileset>
+    </copy>
+  </target>
+</project>

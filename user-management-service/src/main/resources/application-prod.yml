@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://192.168.159.1:5432/maxibetdb?characterEncoding=utf8&allowMultiQueries=true&useSSL=false&stringtype=unspecified
-    username: maxibet
-    password: globalTLLC09
+    url: @jdbc.url@
+    username: @jdbc.username@
+    password: @jdbc.password@
     hikari:
       connection-timeout: 2000
       minimum-idle: 5
@@ -14,7 +14,7 @@ spring:
       max-lifetime: 1800000
       connection-test-query: select 1
   mail:
-    host: smtp.qq.com
-    port: 587
-    username: yyds@qq.com 
-    password:  yyds
+    host: @spring.mail.host@
+    port: @spring.mail.port@
+    username: @spring.mail.username@
+    password:  @spring.mail.password@
